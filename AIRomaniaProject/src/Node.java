@@ -1,4 +1,3 @@
-import java.util.Map;
 
 public class Node {
 	private String state;

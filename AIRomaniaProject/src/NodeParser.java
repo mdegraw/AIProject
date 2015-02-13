@@ -1,4 +1,3 @@
-import java.util.Map;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -11,7 +10,7 @@ public class NodeParser {
 	
 	public NodeParser(File file, String rootCity) throws IOException {
 		this.file = file;
-		this.rootCity = rootCity;
+		this.setRootCity(rootCity);
 
 	}
 	
@@ -75,7 +74,6 @@ public class NodeParser {
 	
 	public Node generateRoot(String cityName) throws IOException{
 		BufferedReader fileReader = null;
-		String childCityName = "";
 		try{
 			fileReader = new BufferedReader(new FileReader(file));
 			String cityAction = "";
@@ -101,5 +99,13 @@ public class NodeParser {
 			}
 		}
 		return null;
+	}
+
+	public String getRootCity() {
+		return rootCity;
+	}
+
+	public void setRootCity(String rootCity) {
+		this.rootCity = rootCity;
 	}
 }

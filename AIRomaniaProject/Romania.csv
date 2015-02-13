@@ -1,0 +1,46 @@
+Arad,Timisoara,118,366
+Arad,Sibiu,140,366
+Arad,Zerind,75,366
+Timisoara,Arad,118,329
+Timisoara,Lugoj,111,329
+Sibiu,Rimnicu Vilcea,80,253
+Sibiu,Arad,140,253
+Sibiu,Oradea,151,253
+Sibiu,Fagaras,99,253
+Zerind,Arad,75,374
+Zerind,Oradea,71,374
+Oradea,Zerind,71,380
+Oradea,Sibiu,151,380
+Lugoj,Timisoara,111,244
+Lugoj,Mehadia,70,244
+Mehadia,Lugoj,70,241
+Mehadia,Drobeta,75,241
+Drobeta,Mehadia,75,242
+Drobeta,Craiova,120,242
+Craiova,Drobeta,120,160
+Craiova,Pitesti,138,160
+Craiova,Rimnicu Vilcea,146,160
+Rimnicu Vilcea,Craiova,146,193
+Rimnicu Vilcea,Sibiu,80,193
+Rimnicu Vilcea,Pitesti,97,193
+Pitesti,Rimnicu Vilcea,97,100
+Pitesti,Craiova,138,100
+Pitesti,Bucharest,101,100
+Fagaras,Sibiu,99,176
+Fagaras,Bucharest,211,176
+Bucharest,Pitesti,101,0
+Bucharest,Fagaras,211,0
+Bucharest,Giurgiu,90,0
+Bucharest,Urziceni,85,0
+Giurgiu,Bucharest,90,77
+Urziceni,Bucharest,85,80
+Urziceni,Hirsova,98,80
+Urziceni,Vaslui,142,80
+Hirsova,Urziceni,98,151
+Hirsova,Eforie,86,151
+Eforie,Hirsova,86,161
+Vaslui,Urziceni,142,199
+Vaslui,Iasi,92,199
+Iasi,Vaslui,92,226
+Iasi,Neamt,87,226
+Neamt,Iasi,87,234

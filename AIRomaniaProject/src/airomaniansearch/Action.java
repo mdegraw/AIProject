@@ -1,3 +1,4 @@
+package airomaniansearch;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class Action {
 		actions.add(cityName);
 	}
 	
-	public List<String> getActions(){
+	public List<String> getListOfActions(){
 		return actions;
 	}
 	

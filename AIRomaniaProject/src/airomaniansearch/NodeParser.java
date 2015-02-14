@@ -1,3 +1,5 @@
+package airomaniansearch;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -10,8 +12,7 @@ public class NodeParser {
 	
 	public NodeParser(File file, String rootCity) throws IOException {
 		this.file = file;
-		this.setRootCity(rootCity);
-
+		this.rootCity = rootCity;
 	}
 	
 	public Node generateNode(String cityName, Node parent) throws IOException{
@@ -43,16 +44,16 @@ public class NodeParser {
 		return null;
 	}
 	
-	public double getStepCost(String cityName, String parentName) {
+	public int getStepCost(String cityName, String parentName) {
 		BufferedReader fileReader = null;
-		double stepCost = 0;
+		int stepCost = 0;
 		try{
 			fileReader = new BufferedReader(new FileReader(file));
 			String cityAction = "";
 			
 			while((cityAction = fileReader.readLine()) != null) {
 				if(cityAction.split(DELIMITER)[0].equals(parentName) && cityAction.split(DELIMITER)[1].equals(cityName)) {
-					stepCost = Double.parseDouble(cityAction.split(DELIMITER)[2]);
+					stepCost = Integer.parseInt(cityAction.split(DELIMITER)[2]);
 				}
 			}
 			return stepCost;
@@ -68,7 +69,7 @@ public class NodeParser {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("boom");
+
 		return stepCost;
 	}
 	

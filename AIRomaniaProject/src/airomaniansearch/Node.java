@@ -1,17 +1,18 @@
+package airomaniansearch;
 
 public class Node {
 	private String state;
 	private Node parent;
 	private Action action;
-	private double pathCost;
+	private int pathCost;
 	
-	public Node(String state, Node parent, Action action, double stepCost) {
+	public Node(String state, Node parent, Action action, int stepCost) {
 		this.state = state;
 		this.parent = parent;
 		this.action = action;
 		this.pathCost = parent.getPathCost() + stepCost;
 	}
-	public Node(String state, Action action, double stepCost) {
+	public Node(String state, Action action, int stepCost) {
 		this.state = state;
 		this.parent = null;
 		this.action = action;
@@ -49,17 +50,17 @@ public class Node {
 		this.action = action;
 	}
 
-	public double getPathCost() {
+	public int getPathCost() {
 		return pathCost;
 	}
 
-	public void setPathCost(float pathCost) {
+	public void setPathCost(int pathCost) {
 		this.pathCost = pathCost;
 	}
 	
 	public String actionsToString() {
 		String actions = "";
-		for(String s : action.getActions()){
+		for(String s : action.getListOfActions()){
 			actions += "\n" + s;
 		}
 		return actions;

@@ -32,9 +32,7 @@ public class Node {
 		this.heuristic = heuristic;
 		this.result = Result.INITIAL;
 	}
-	public Node(String state){
-		this(state, null, null, 0);
-	}
+
 	/*
 	public Node childNode(Node parent, String action) {
 		return new NodeParser();

@@ -21,6 +21,7 @@ public class RomaniaSearchMain {
 		
 		Search search = new Search();
 		
+		
 		startTime = System.nanoTime();
 		List<Node> solution = search.breadthFirstSearch(problem);
 		endTime = System.nanoTime();
@@ -31,41 +32,8 @@ public class RomaniaSearchMain {
 		endTime = System.nanoTime();
 		duration2 = TimeUnit.MILLISECONDS.convert(endTime-startTime, TimeUnit.NANOSECONDS);
 		
-		if(!goal.equals("Bucharest")){
-		
-		System.out.print("\nBreadth First Search Solution path is: ");
-		
-		for(Node n : solution) {
-			System.out.print(n.getState() + " ");
-		}
-		System.out.println("\nPath cost is " + solution.get(solution.size()-1).getPathCost());
-		System.out.println("Breadth First Search Time Taken: " + duration1 + " milliseconds");
-		
-		System.out.print("\nUniform-Cost-Search Solution path is: ");
-		for(Node n : solution2) {
-			System.out.print(n.getState() + " ");
-		}
-		System.out.println("\nPath cost is " + solution2.get(solution2.size()-1).getPathCost());
-		
-		System.out.println("Uniform-Cost-Search Time Taken: " + duration2 + " milliseconds");
-		
-		
-		}else {
-			System.out.print("\nBreadth First Search Solution path is: ");
+		if(goal.equals("Bucharest")){
 			
-			for(Node n : solution) {
-				System.out.print(n.getState() + " ");
-			}
-			System.out.println("\nPath cost is " + solution.get(solution.size()-1).getPathCost());
-			System.out.println("Breadth First Search Time Taken: " + duration1 + " milliseconds");
-			
-			System.out.print("\nUniform-Cost-Search Solution path is: ");
-			for(Node n : solution2) {
-				System.out.print(n.getState() + " ");
-			}
-			System.out.println("\nPath cost is " + solution2.get(solution2.size()-1).getPathCost());
-			System.out.println("Uniform-Cost-Search Time Taken: " + duration2 + " milliseconds");
-			System.out.println();
 			
 			startTime = System.nanoTime();
 			List<Node> solution3 = search.aStarSearch(problem);
@@ -81,8 +49,35 @@ public class RomaniaSearchMain {
 			System.out.println("A* Search Time Taken: " + duration3 + " milliseconds");
 		}
 		
+		System.out.print("\nBreadth First Search Solution path is: ");
 		
+		for(Node n : solution) {
+			System.out.print(n.getState() + " ");
+		}
+		System.out.println("\nPath cost is " + solution.get(solution.size()-1).getPathCost());
+		System.out.println("Breadth First Search Time Taken: " + duration1 + " milliseconds");
 		
+		System.out.print("\nUniform-Cost-Search Solution path is: ");
+		for(Node n : solution2) {
+			System.out.print(n.getState() + " ");
+		}
+		System.out.println("\nPath cost is " + solution2.get(solution2.size()-1).getPathCost());
+		System.out.println("Uniform-Cost-Search Time Taken: " + duration2 + " milliseconds");
+		System.out.println();
+		
+		startTime = System.nanoTime();
+		List<Node> solution5 = search.returnPathFromDLS(problem, 5);
+		endTime = System.nanoTime();
+		duration1 = TimeUnit.MILLISECONDS.convert(endTime-startTime, TimeUnit.NANOSECONDS);
+		System.out.print("\nDLS Solution path is: ");
+		
+		for(Node n : solution5) {
+			System.out.print(n.getState() + " ");
+		}
+		System.out.println("\nPath cost is " + solution5.get(solution5.size()-1).getPathCost());
+		System.out.println("Recursive DLS Time Taken: " + duration1 + " milliseconds");
+		
+	
 		input.close();
 	}
 }

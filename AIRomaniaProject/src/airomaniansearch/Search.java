@@ -12,6 +12,7 @@ import java.util.PriorityQueue;
 public class Search {
 	private Node root;
 	
+	
 	public List<Node> breadthFirstSearch(Problem problem) throws IOException {
 		LinkedList<Node> frontier = new LinkedList<Node>();
 		HashSet<String> explored = new HashSet<String>();
@@ -47,10 +48,7 @@ public class Search {
 		}
 		
 	}//End breadthFirstSearch
-	/*public List<Node> depthFirstSearch() {
-		
-	}*/
-
+	
 	public List<Node> genericBFS(Problem problem, Comparator<Node> comparator) throws IOException{
 		PriorityQueue<Node> frontier = new PriorityQueue<Node>(comparator);
 		HashMap<Node, String> frontier_elements = new HashMap<Node, String>();
@@ -74,6 +72,11 @@ public class Search {
 			
 			Node city = frontier.poll();
 			frontier_elements.remove(city);
+		
+			int g =  city.getPathCost();
+			int h =  city.getHeuristic();
+			int f = g + h;
+			System.out.println("City: " + city.getState() + " g(n) = " + g + " + h(n) = " + h + " = " + f);
 			
 			if(city.getState().equals(problem.getGoal()))
 				return getPathFromGoal(city, problem);
@@ -92,7 +95,7 @@ public class Search {
 					
 					frontier.add(child);
 					frontier_elements.put(child, child.getState());
-					
+				
 				}
 			}
 		}
@@ -108,6 +111,52 @@ public class Search {
 		return genericBFS(problem, (Node n1, Node n2) -> (n1.getPathCost()+n1.getHeuristic()) - (n2.getPathCost() + n2.getHeuristic()));
 	
 	}//End aStarSearch
+	
+	
+	public List<Node> returnPathFromDLS(Problem problem, int limit) throws IOException{
+		return getPathFromGoal(depthLimitedSearch(problem, limit), problem);
+	}
+	
+	public Node depthLimitedSearch(Problem problem, int limit) throws IOException{
+		CSVParser nodeTree = new CSVParser(problem.getFile(), problem.getStartCity());
+		
+		return recursiveDLS(nodeTree.parseCSV(problem.getStartCity(), null), problem, new CSVParser(problem.getFile(), problem.getStartCity()), 6);
+	}
+	
+	public Node recursiveDLS(Node node, Problem problem, CSVParser nodeTree, int limit) throws IOException {
+		boolean cutoff_occurred;
+		if(node.getState().equals(problem.getGoal())){
+			node.setResult(Result.SUCCESS);
+			return node;
+			
+		}else if(limit == 0) {
+			node.setResult(Result.CUTOFF); 
+			return node;
+		
+		}else {
+			cutoff_occurred = false;
+			for(String s : node.getAction().getListOfActions()) {
+				Node child = nodeTree.parseCSV(s, node);
+				Node result_node = recursiveDLS(child, problem, nodeTree, limit-1);
+			
+				if(result_node.getResult().equals(Result.CUTOFF)){
+					cutoff_occurred = true;
+				
+				}else if(!result_node.equals(Result.FAILURE)) {
+					return result_node;
+				}
+			}
+			if(cutoff_occurred) {
+				node.setResult(Result.CUTOFF); 
+				return node;
+			}else {
+				node.setResult(Result.FAILURE);
+				return node;
+			}
+		}
+		//return null;
+	}
+	
 	
 	public List<Node> getPathFromGoal(Node n, Problem problem) {
 		List<Node> solutionPath = new LinkedList<Node>();

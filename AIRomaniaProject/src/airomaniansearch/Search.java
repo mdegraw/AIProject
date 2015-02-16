@@ -139,13 +139,13 @@ public class Search {
 					
 					frontier.add(child);
 					frontier_elements.put(child, child.getState());
-					
+					/*
 					int g = child.getPathCost();
 					int h = child.getHeuristic();
 					int f = g+h;
 					System.out.println("A* Child Node: " + child.getState() + " A* path cost, g(n) = " + g + " A* heuristic, h(n) = " + h);
 					System.out.println("Estimated cost = g(n) + h(n)  = " + f);
-					
+					*/
 				}
 			}
 		}

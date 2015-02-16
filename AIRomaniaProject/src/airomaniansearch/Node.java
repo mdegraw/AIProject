@@ -5,18 +5,28 @@ public class Node {
 	private Node parent;
 	private Action action;
 	private int pathCost;
+	private int heuristic;
 	
 	public Node(String state, Node parent, Action action, int stepCost) {
 		this.state = state;
 		this.parent = parent;
 		this.action = action;
+		this.heuristic = 0;
 		this.pathCost = parent.getPathCost() + stepCost;
 	}
-	public Node(String state, Action action, int stepCost) {
+	public Node(String state, Node parent, Action action, int stepCost, int heuristic) {
+		this.state = state;
+		this.parent = parent;
+		this.action = action;
+		this.heuristic = heuristic;
+		this.pathCost = parent.getPathCost() + stepCost;
+	}
+	public Node(String state, Action action, int stepCost, int heuristic) {
 		this.state = state;
 		this.parent = null;
 		this.action = action;
 		this.pathCost = 0;
+		this.heuristic = heuristic;
 	}
 	public Node(String state){
 		this(state, null, null, 0);
@@ -64,6 +74,12 @@ public class Node {
 			actions += "\n" + s;
 		}
 		return actions;
+	}
+	public int getHeuristic() {
+		return heuristic;
+	}
+	public void setHeuristic(int heuristic) {
+		this.heuristic = heuristic;
 	}
 
 }

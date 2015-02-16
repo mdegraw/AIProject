@@ -18,14 +18,47 @@ public class RomaniaSearchMain {
 		problem = new Problem(startCity, goal);
 		
 		Search search = new Search();
-		//List<Node> solution = search.breadthFirstSearch(problem);
-		List<Node> solution = search.uniformCostSearch(problem);
-		System.out.println("Solution path is:");
+		List<Node> solution = search.breadthFirstSearch(problem);
+		List<Node> solution2 = search.uniformCostSearch(problem);
+		if(!goal.equals("Bucharest")){
+		
+		System.out.print("\nBreadth First Search Solution path is: ");
 		
 		for(Node n : solution) {
 			System.out.print(n.getState() + " ");
 		}
 		System.out.println("\nPath cost is " + solution.get(solution.size()-1).getPathCost());
+		
+		System.out.print("\nUniform-Cost-Search Solution path is: ");
+		for(Node n : solution2) {
+			System.out.print(n.getState() + " ");
+		}
+		System.out.println("\nPath cost is " + solution2.get(solution2.size()-1).getPathCost());
+		
+		}else {
+			System.out.print("\nBreadth First Search Solution path is: ");
+			
+			for(Node n : solution) {
+				System.out.print(n.getState() + " ");
+			}
+			System.out.println("\nPath cost is " + solution.get(solution.size()-1).getPathCost());
+			
+			System.out.print("\nUniform-Cost-Search Solution path is: ");
+			for(Node n : solution2) {
+				System.out.print(n.getState() + " ");
+			}
+			System.out.println("\nPath cost is " + solution2.get(solution2.size()-1).getPathCost());
+			
+			List<Node> solution3 = search.aStarSearch(problem);	
+			System.out.print("\nA* Search Solution path is: ");
+			for(Node n : solution3) {
+				System.out.print(n.getState() + " ");
+			}
+			System.out.println("\nPath cost is " + solution3.get(solution3.size()-1).getPathCost());
+		}
+		
+		
+		
 		input.close();
 	}
 }

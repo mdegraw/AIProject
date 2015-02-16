@@ -48,12 +48,14 @@ public class RomaniaSearchMain {
 				System.out.print(n.getState() + " ");
 			}
 			System.out.println("\nPath cost is " + solution2.get(solution2.size()-1).getPathCost());
+			System.out.println();
 			
 			List<Node> solution3 = search.aStarSearch(problem);	
 			System.out.print("\nA* Search Solution path is: ");
 			for(Node n : solution3) {
 				System.out.print(n.getState() + " ");
 			}
+			
 			System.out.println("\nPath cost is " + solution3.get(solution3.size()-1).getPathCost());
 		}
 		

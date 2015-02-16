@@ -51,7 +51,8 @@ public class Search {
 	}*/
 	public List<Node> uniformCostSearch(Problem problem) throws IOException {
 		
-		PriorityQueue<Node> frontier = new PriorityQueue<Node>((Node n1, Node n2) -> (n1.getPathCost()+n1.getHeuristic()) - (n2.getPathCost()+n1.getHeuristic()));
+		PriorityQueue<Node> frontier = new PriorityQueue<Node>((Node n1, Node n2) -> (n1.getPathCost() - n2.getPathCost()));
+		
 		HashMap<Node, String> frontier_elements = new HashMap<Node, String>();
 		HashSet<String> explored = new HashSet<String>();
 		List<Node> solutionPath = new ArrayList<Node>();
@@ -90,6 +91,7 @@ public class Search {
 					
 					frontier.add(child);
 					frontier_elements.put(child, child.getState());
+					System.out.println("Uniform Child Node: " + child.getState() + " Uniform path cost: " + child.getPathCost());
 					
 				}
 			}
@@ -98,7 +100,8 @@ public class Search {
 	
 	public List<Node> aStarSearch(Problem problem) throws IOException {
 		
-		PriorityQueue<Node> frontier = new PriorityQueue<Node>((Node n1, Node n2) -> n1.getPathCost() - n2.getPathCost());
+		//PriorityQueue<Node> frontier = new PriorityQueue<Node>((Node n1, Node n2) -> n1.getPathCost() - n2.getPathCost());
+		PriorityQueue<Node> frontier = new PriorityQueue<Node>((Node n1, Node n2) -> (n1.getPathCost()+n1.getHeuristic()) - (n2.getPathCost() + n2.getHeuristic()));
 		HashMap<Node, String> frontier_elements = new HashMap<Node, String>();
 		HashSet<String> explored = new HashSet<String>();
 		List<Node> solutionPath = new ArrayList<Node>();
@@ -138,6 +141,12 @@ public class Search {
 					
 					frontier.add(child);
 					frontier_elements.put(child, child.getState());
+					
+					int g = child.getPathCost();
+					int h = child.getHeuristic();
+					int f = g+h;
+					System.out.println("A* Child Node: " + child.getState() + " A* path cost, g(n) = " + g + " A* heuristic, h(n) = " + h);
+					System.out.println("Estimated cost = g(n) + h(n)  = " + f);
 					
 				}
 			}

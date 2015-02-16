@@ -44,7 +44,7 @@ public class CSVParser {
 
 		while((cityAction = fileReader.readLine()) != null) {
 			if(cityAction.split(DELIMITER)[0].equals(cityName)) {
-				heuristic = Integer.parseInt(cityAction.split(DELIMITER)[2]);
+				heuristic = Integer.parseInt(cityAction.split(DELIMITER)[3]);
 				actions.addAction(cityAction.split(DELIMITER)[1]);
 			}
 		}
@@ -59,7 +59,7 @@ public class CSVParser {
 
 		while((cityAction = fileReader.readLine()) != null) {
 			if(cityAction.split(DELIMITER)[0].equals(cityName)) {
-				heuristic = Integer.parseInt(cityAction.split(DELIMITER)[2]);
+				heuristic = Integer.parseInt(cityAction.split(DELIMITER)[3]);
 				actions.addAction(cityAction.split(DELIMITER)[1]);
 			}
 		}

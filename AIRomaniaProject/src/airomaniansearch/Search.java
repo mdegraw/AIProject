@@ -46,7 +46,7 @@ public class Search {
 			}
 		}
 		
-	}
+	}//End breadthFirstSearch
 	/*public List<Node> depthFirstSearch() {
 		
 	}*/
@@ -92,17 +92,11 @@ public class Search {
 					
 					frontier.add(child);
 					frontier_elements.put(child, child.getState());
-					/*
-					int g = child.getPathCost();
-					int h = child.getHeuristic();
-					int f = g+h;
-					System.out.println("A* Child Node: " + child.getState() + " A* path cost, g(n) = " + g + " A* heuristic, h(n) = " + h);
-					System.out.println("Estimated cost = g(n) + h(n)  = " + f);
-					*/
+					
 				}
 			}
 		}
-	}
+	}//End genericBFS
 	
 	public List<Node> uniformCostSearch(Problem problem) throws IOException {
 		return genericBFS(problem, (Node n1, Node n2) -> (n1.getPathCost() - n2.getPathCost()));
@@ -126,5 +120,5 @@ public class Search {
 		solutionPath.add(0, currentNode);
 		return solutionPath;
 		
-	}
+	}//End getPathFromGoal
 }

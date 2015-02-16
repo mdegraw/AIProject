@@ -99,8 +99,6 @@ public class Search {
 	}//End Uniform Cost Search
 	
 	public List<Node> aStarSearch(Problem problem) throws IOException {
-		
-		//PriorityQueue<Node> frontier = new PriorityQueue<Node>((Node n1, Node n2) -> n1.getPathCost() - n2.getPathCost());
 		PriorityQueue<Node> frontier = new PriorityQueue<Node>((Node n1, Node n2) -> (n1.getPathCost()+n1.getHeuristic()) - (n2.getPathCost() + n2.getHeuristic()));
 		HashMap<Node, String> frontier_elements = new HashMap<Node, String>();
 		HashSet<String> explored = new HashSet<String>();

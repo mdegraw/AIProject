@@ -2,6 +2,7 @@ package airomaniansearch;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -49,57 +50,9 @@ public class Search {
 	/*public List<Node> depthFirstSearch() {
 		
 	}*/
-	public List<Node> uniformCostSearch(Problem problem) throws IOException {
-		
-		PriorityQueue<Node> frontier = new PriorityQueue<Node>((Node n1, Node n2) -> (n1.getPathCost() - n2.getPathCost()));
-		
-		HashMap<Node, String> frontier_elements = new HashMap<Node, String>();
-		HashSet<String> explored = new HashSet<String>();
-		List<Node> solutionPath = new ArrayList<Node>();
-		CSVParser nodeTree = new CSVParser(problem.getFile(), problem.getStartCity());
 
-		root = nodeTree.parseCSV(problem.getStartCity(), null);
-		
-		frontier.add(root);
-		frontier_elements.put(root, root.getState());
-		solutionPath.add(root);
-		
-		if(root.getState().equals(problem.getGoal())){return solutionPath;}
-		
-		while(true) {
-			if(frontier.isEmpty()){
-				solutionPath.clear();
-				return solutionPath;
-			}
-			Node city = frontier.poll();
-			frontier_elements.remove(city);
-			
-			if(city.getState().equals(problem.getGoal()))
-				return getPathFromGoal(city, problem);
-	
-			explored.add(city.getState());
-			
-			for(String s : city.getAction().getListOfActions()) {
-				Node child = nodeTree.parseCSV(s, city);
-				
-				if(!(explored.contains(child.getState()) || frontier_elements.containsValue(child.getState()))) {
-		
-					frontier.add(child);
-					frontier_elements.put(child, child.getState());
-				
-				}else if(frontier_elements.containsValue(child.getState())){
-					
-					frontier.add(child);
-					frontier_elements.put(child, child.getState());
-					System.out.println("Uniform Child Node: " + child.getState() + " Uniform path cost: " + child.getPathCost());
-					
-				}
-			}
-		}
-	}//End Uniform Cost Search
-	
-	public List<Node> aStarSearch(Problem problem) throws IOException {
-		PriorityQueue<Node> frontier = new PriorityQueue<Node>((Node n1, Node n2) -> (n1.getPathCost()+n1.getHeuristic()) - (n2.getPathCost() + n2.getHeuristic()));
+	public List<Node> genericBFS(Problem problem, Comparator<Node> comparator) throws IOException{
+		PriorityQueue<Node> frontier = new PriorityQueue<Node>(comparator);
 		HashMap<Node, String> frontier_elements = new HashMap<Node, String>();
 		HashSet<String> explored = new HashSet<String>();
 		List<Node> solutionPath = new ArrayList<Node>();
@@ -149,6 +102,17 @@ public class Search {
 				}
 			}
 		}
+	}
+	
+	public List<Node> uniformCostSearch(Problem problem) throws IOException {
+		return genericBFS(problem, (Node n1, Node n2) -> (n1.getPathCost() - n2.getPathCost()));
+		
+	}//End Uniform Cost Search
+	
+	
+	public List<Node> aStarSearch(Problem problem) throws IOException {
+		return genericBFS(problem, (Node n1, Node n2) -> (n1.getPathCost()+n1.getHeuristic()) - (n2.getPathCost() + n2.getHeuristic()));
+	
 	}//End aStarSearch
 	
 	public List<Node> getPathFromGoal(Node n, Problem problem) {

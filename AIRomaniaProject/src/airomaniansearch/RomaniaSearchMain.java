@@ -9,7 +9,7 @@ public class RomaniaSearchMain {
 	public static void main(String[] args) throws IOException {
 		Problem problem;
 		Scanner input = new Scanner(System.in);
-		long startTime, endTime, duration1, duration2, duration3 = 0;
+		long startTime, endTime, duration1, duration2, duration3, duration4, duration5 = 0;
 		
 		System.out.print("Please enter start city: ");
 		String startCity = input.nextLine();
@@ -66,17 +66,28 @@ public class RomaniaSearchMain {
 		System.out.println();
 		
 		startTime = System.nanoTime();
-		List<Node> solution5 = search.returnPathFromDLS(problem, 5);
+		List<Node> solution4 = search.returnPathFromDLS(problem, 5);
 		endTime = System.nanoTime();
-		duration1 = TimeUnit.MILLISECONDS.convert(endTime-startTime, TimeUnit.NANOSECONDS);
+		duration4 = TimeUnit.MILLISECONDS.convert(endTime-startTime, TimeUnit.NANOSECONDS);
 		System.out.print("\nDLS Solution path is: ");
 		
-		for(Node n : solution5) {
+		for(Node n : solution4) {
 			System.out.print(n.getState() + " ");
 		}
-		System.out.println("\nPath cost is " + solution5.get(solution5.size()-1).getPathCost());
-		System.out.println("Recursive DLS Time Taken: " + duration1 + " milliseconds");
+	
+		System.out.println("\nRecursive DLS Time Taken: " + duration4 + " milliseconds");
 		
+		startTime = System.nanoTime();
+		List<Node> solution5 = search.iterativeDLS(problem);
+		endTime = System.nanoTime();
+		duration5 = TimeUnit.MILLISECONDS.convert(endTime-startTime, TimeUnit.NANOSECONDS);
+		System.out.print("\niterativeDLS Solution path is: ");
+		
+		for(Node n : solution5){
+			System.out.print(n.getState() + " ");
+		}
+	
+		System.out.println("\nIterative DLS Time Taken: " + duration5 + " milliseconds");
 	
 		input.close();
 	}

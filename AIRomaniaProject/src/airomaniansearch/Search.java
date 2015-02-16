@@ -113,17 +113,33 @@ public class Search {
 	}//End aStarSearch
 	
 	
+	public List<Node>iterativeDLS(Problem problem) throws IOException{
+		int depth = 0;
+		System.out.println();
+		while(true) {
+			Node result_node = depthLimitedSearch(problem, depth);
+			if(!result_node.getResult().equals(Result.CUTOFF)){
+				int result_depth = depth+1;
+				System.out.println("IterativeDLS Depth = " + result_depth);
+				return getPathFromGoal(result_node, problem);
+			}
+			depth++;
+		}
+	}//End IterativeDLS
+	
 	public List<Node> returnPathFromDLS(Problem problem, int limit) throws IOException{
 		return getPathFromGoal(depthLimitedSearch(problem, limit), problem);
-	}
+	
+	}//End returnPathFromDLS
 	
 	public Node depthLimitedSearch(Problem problem, int limit) throws IOException{
 		CSVParser nodeTree = new CSVParser(problem.getFile(), problem.getStartCity());
 		
-		return recursiveDLS(nodeTree.parseCSV(problem.getStartCity(), null), problem, new CSVParser(problem.getFile(), problem.getStartCity()), 6);
-	}
+		return recursiveDLS(nodeTree.parseCSV(problem.getStartCity(), null), problem, limit);
 	
-	public Node recursiveDLS(Node node, Problem problem, CSVParser nodeTree, int limit) throws IOException {
+	}//End depthLimitedSearch
+	
+	public Node recursiveDLS(Node node, Problem problem, int limit) throws IOException {
 		boolean cutoff_occurred;
 		if(node.getState().equals(problem.getGoal())){
 			node.setResult(Result.SUCCESS);
@@ -136,8 +152,9 @@ public class Search {
 		}else {
 			cutoff_occurred = false;
 			for(String s : node.getAction().getListOfActions()) {
+				CSVParser nodeTree = new CSVParser(problem.getFile(), problem.getStartCity());
 				Node child = nodeTree.parseCSV(s, node);
-				Node result_node = recursiveDLS(child, problem, nodeTree, limit-1);
+				Node result_node = recursiveDLS(child, problem, limit-1);
 			
 				if(result_node.getResult().equals(Result.CUTOFF)){
 					cutoff_occurred = true;
@@ -154,8 +171,8 @@ public class Search {
 				return node;
 			}
 		}
-		//return null;
-	}
+	
+	}//End recursiveDLS
 	
 	
 	public List<Node> getPathFromGoal(Node n, Problem problem) {

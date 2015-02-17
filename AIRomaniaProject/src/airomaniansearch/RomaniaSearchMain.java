@@ -9,7 +9,7 @@ public class RomaniaSearchMain {
 	public static void main(String[] args) throws IOException {
 		Problem problem;
 		Scanner input = new Scanner(System.in);
-		long startTime, endTime, duration1, duration2, duration3, duration4, duration5 = 0;
+		long startTime, endTime, duration1, duration2, duration3, duration4, duration5, duration6 = 0;
 		
 		System.out.print("Please enter start city: ");
 		String startCity = input.nextLine();
@@ -89,6 +89,18 @@ public class RomaniaSearchMain {
 	
 		System.out.println("\nIterative DLS Time Taken: " + duration5 + " milliseconds");
 	
+		startTime = System.nanoTime();
+		List<Node> solution6 = search.returnPathFromRBFS(problem);
+		endTime = System.nanoTime();
+		duration5 = TimeUnit.MILLISECONDS.convert(endTime-startTime, TimeUnit.NANOSECONDS);
+		System.out.print("\nRecursive Best-First-Search  Solution path is: ");
+		
+		for(Node n : solution6){
+			System.out.print(n.getState() + " ");
+		}
+	
+		System.out.println("\nRecursive Best-First-Search Time Taken: " + duration6 + " milliseconds");
+		
 		input.close();
 	}
 }

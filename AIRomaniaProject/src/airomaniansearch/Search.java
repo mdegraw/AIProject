@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -76,7 +77,7 @@ public class Search {
 			int g =  city.getPathCost();
 			int h =  city.getHeuristic();
 			int f = g + h;
-			System.out.println("City: " + city.getState() + " g(n) = " + g + " + h(n) = " + h + " = " + f);
+			System.out.println("City: " + city.getState() + " f(n) = [(g(n) = " + g + ") + (h(n) = " + h + ")] = " + f);
 			
 			if(city.getState().equals(problem.getGoal()))
 				return getPathFromGoal(city, problem);
@@ -108,8 +109,9 @@ public class Search {
 	
 	
 	public List<Node> aStarSearch(Problem problem) throws IOException {
-		return genericBFS(problem, (Node n1, Node n2) -> (n1.getPathCost()+n1.getHeuristic()) - (n2.getPathCost() + n2.getHeuristic()));
-	
+		//return genericBFS(problem, (Node n1, Node n2) -> (n1.getPathCost()+n1.getHeuristic()) - (n2.getPathCost() + n2.getHeuristic()));
+		return genericBFS(problem, (Node n1, Node n2) -> (n1.getfCost() - n2.getfCost()));
+		
 	}//End aStarSearch
 	
 	
@@ -174,8 +176,85 @@ public class Search {
 	
 	}//End recursiveDLS
 	
+	public List<Node> returnPathFromRBFS(Problem problem) throws IOException{
+		return getPathFromGoal(recursiveBestFirstSearch(problem), problem);
 	
-	public List<Node> getPathFromGoal(Node n, Problem problem) {
+	}//End returnPathFromRBFS
+	
+	public Node recursiveBestFirstSearch(Problem problem) throws IOException {
+		CSVParser nodeTree = new CSVParser(problem.getFile(), problem.getStartCity());
+		
+		return rBFS(problem, nodeTree.parseCSV(problem.getStartCity(), null), Integer.MAX_VALUE);
+	
+	}//End recursiveBestFirstSearch
+	
+	public Node rBFS(Problem problem, Node node, int f_limit) throws IOException {
+		
+		System.out.println("f_limit = " + f_limit);
+		
+		if(node.getState().equals(problem.getGoal())){
+			node.setResult(Result.SUCCESS);
+			return node;
+		}
+		ArrayList<Node> successors = new ArrayList<Node>();
+		
+		for(String s : node.getAction().getListOfActions()) {
+			CSVParser nodeTree = new CSVParser(problem.getFile(), problem.getStartCity());
+			successors.add(nodeTree.parseCSV(s, node));
+		}
+		
+		if(successors.isEmpty()) {
+		
+			node.setResult(Result.FAILURE);
+			node.setfLimit(Integer.MAX_VALUE);
+
+			return node;
+		}
+	
+		successors.forEach((Node s) -> s.setfCost(Math.max((s.getPathCost()+s.getHeuristic()), node.getfCost())));
+	
+		while(true) {
+			
+			Node best = getLowestFValue(successors);
+			System.out.println("Best Node is " + best.getState() + " Best f-cost = " + best.getfCost() + " Best f-limit = " + best.getfLimit() );
+			if(best.getfCost() > f_limit) {
+				best.setResult(Result.FAILURE);
+				best.setfLimit(best.getfCost());
+				return best;
+			}
+			int alternative = successors.get(successors.size()-2).getfCost();
+			System.out.println("Alt f-cost = " + alternative);
+		//	Node temp = rBFS(problem, best, Math.min(f_limit, alternative));
+			//best.setfCost(temp.getfCost());
+			Node result =  rBFS(problem, best, Math.min(f_limit, alternative));
+			best.setfCost(result.getfCost());
+			
+			System.out.println("Result Node is " + result.getState() + " R f-cost = " + result.getfCost() + " R f-limit = " + result.getfLimit() );
+			
+			if(!result.getResult().equals(Result.FAILURE)) {
+				return result;
+			}
+			
+		}
+	
+	}//End rBFS
+	
+	private Node getLowestFValue(List<Node> successors) {
+		successors.sort((Node n1, Node n2) -> (n1.getfCost()-n2.getfCost()));
+		Node lowest = successors.get(0);
+		//successors.forEach((Node n) -> System.out.println("node " + n.getState() + " f cost = " + n.getfCost()));
+		
+		Iterator<Node> itr = successors.iterator();
+		
+		while(itr.hasNext()) {
+			Node temp = itr.next();
+			lowest = (temp.getfCost() < lowest.getfCost()) ? temp : lowest;
+		}
+		
+		return lowest;
+	}
+	
+	private List<Node> getPathFromGoal(Node n, Problem problem) {
 		List<Node> solutionPath = new LinkedList<Node>();
 		Node currentNode = n;
 		while(!currentNode.getState().equals(problem.getStartCity())) {

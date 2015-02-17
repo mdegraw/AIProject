@@ -37,7 +37,7 @@ public class CSVParser {
 		return null;
 	}
 	
-	public Node generateRoot(String cityName, BufferedReader fileReader) throws IOException{
+	private Node generateRoot(String cityName, BufferedReader fileReader) throws IOException{
 		String cityAction = "";
 		int heuristic = 0;
 		Action actions = new Action();
@@ -52,7 +52,7 @@ public class CSVParser {
 	
 	}
 	
-	public Node generateNode(String cityName, Node parent, BufferedReader fileReader) throws IOException{
+	private Node generateNode(String cityName, Node parent, BufferedReader fileReader) throws IOException{
 		String cityAction = "";
 		int heuristic = 0;
 		Action actions = new Action();

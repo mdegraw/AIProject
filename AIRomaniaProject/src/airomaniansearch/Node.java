@@ -7,6 +7,8 @@ public class Node {
 	private Result result;
 	private int pathCost;
 	private int heuristic;
+	private int fCost;
+	private int fLimit;
 	
 	public Node(String state, Node parent, Action action, int stepCost) {
 		this.state = state;
@@ -14,6 +16,8 @@ public class Node {
 		this.action = action;
 		this.heuristic = 0;
 		this.pathCost = parent.getPathCost() + stepCost;
+		this.fCost = this.pathCost;
+		this.fLimit = 0;
 		this.result = Result.INITIAL;
 	}
 	public Node(String state, Node parent, Action action, int stepCost, int heuristic) {
@@ -22,6 +26,8 @@ public class Node {
 		this.action = action;
 		this.heuristic = heuristic;
 		this.pathCost = parent.getPathCost() + stepCost;
+		this.fCost = this.pathCost + this.heuristic;
+		this.fLimit = 0;
 		this.result = Result.INITIAL;
 	}
 	public Node(String state, Action action, int stepCost, int heuristic) {
@@ -30,6 +36,8 @@ public class Node {
 		this.action = action;
 		this.pathCost = 0;
 		this.heuristic = heuristic;
+		this.fCost = this.heuristic;
+		this.fLimit = 0;
 		this.result = Result.INITIAL;
 	}
 
@@ -61,7 +69,15 @@ public class Node {
 	public void setAction(Action action) {
 		this.action = action;
 	}
-
+	
+	public int getfCost() {
+		return this.fCost;
+	}
+	
+	public void setfCost(int fCost) {
+		this.fCost = fCost;
+	}
+	
 	public int getPathCost() {
 		return pathCost;
 	}
@@ -77,9 +93,19 @@ public class Node {
 		}
 		return actions;
 	}
+	
+	public int getfLimit() {
+		return fLimit;
+	}
+	
+	public void setfLimit(int fLimit) {
+		this.fLimit = fLimit;
+	}
+	
 	public int getHeuristic() {
 		return heuristic;
 	}
+	
 	public void setHeuristic(int heuristic) {
 		this.heuristic = heuristic;
 	}

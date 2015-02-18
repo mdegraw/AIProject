@@ -37,11 +37,12 @@ public class GenericBreadthFirstSearch extends Search {
 			Node city = frontier.poll();
 			frontier_elements.remove(city);
 		
+			/*
 			int g =  city.getPathCost();
 			int h =  city.getHeuristic();
 			int f = g + h;
 			System.out.println("City: " + city.getState() + " f(n) = [(g(n) = " + g + ") + (h(n) = " + h + ")] = " + f);
-			
+			*/
 			if(city.getState().equals(problem.getGoal()))
 				return getPathFromGoal(city, problem);
 	

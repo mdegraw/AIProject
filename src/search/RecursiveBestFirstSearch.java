@@ -60,10 +60,9 @@ public class RecursiveBestFirstSearch extends Search{
 			}
 			//successors.sort((Node n1, Node n2) -> (n1.getfCost() - n2.getfCost()));
 			successors.sort(Comparator.comparing(Node::getfCost));
+			
 			int alternative = successors.get(successors.size()-2).getfCost();
-			System.out.println("Alt f-cost = " + alternative);
-		//	Node temp = rBFS(problem, best, Math.min(f_limit, alternative));
-			//best.setfCost(temp.getfCost());
+
 			Node result =  rBFS(problem, best, Math.min(f_limit, alternative));
 			best.setfCost(result.getfCost());
 			
@@ -80,8 +79,7 @@ public class RecursiveBestFirstSearch extends Search{
 	private Node getLowestFValue(List<Node> successors) {
 		successors.sort((Node n1, Node n2) -> (n1.getfCost()-n2.getfCost()));
 		Node lowest = successors.get(0);
-		//successors.forEach((Node n) -> System.out.println("node " + n.getState() + " f cost = " + n.getfCost()));
-		
+	
 		Iterator<Node> itr = successors.iterator();
 		
 		while(itr.hasNext()) {

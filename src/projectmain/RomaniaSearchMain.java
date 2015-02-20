@@ -87,7 +87,7 @@ public class RomaniaSearchMain {
 		
 		Search dls = searchFactory.getSearch("Depth Limited Search");
 		startTime = System.nanoTime();
-		List<Node> solution4 = ((DepthLimited)dls).returnPathFromDLS(problem, 5);
+		List<Node> solution4 = ((DepthLimited)dls).returnPathFromDLS(problem, 9);
 		endTime = System.nanoTime();
 		duration4 = TimeUnit.MILLISECONDS.convert(endTime-startTime, TimeUnit.NANOSECONDS);
 		System.out.print("\nDepth Limited Search  Solution path is: ");

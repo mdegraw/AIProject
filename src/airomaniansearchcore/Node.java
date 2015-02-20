@@ -41,11 +41,6 @@ public class Node {
 		this.result = Result.INITIAL;
 	}
 
-	/*
-	public Node childNode(Node parent, String action) {
-		return new NodeParser();
-	}
-	*/
 	public String getState() {
 		return state;
 	}

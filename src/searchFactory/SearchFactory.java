@@ -2,25 +2,25 @@ package searchFactory;
 
 import java.util.HashMap;
 
-import search.AStarSearch;
-import search.BreadthFirstSearch;
-import search.DepthLimitedSearch;
-import search.IterativeDepthLimitedSearch;
-import search.RecursiveBestFirstSearch;
+import search.AStar;
+import search.BreadthFirst;
+import search.DepthLimited;
+import search.IterativeDepthLimited;
+import search.RecursiveBestFirst;
 import search.Search;
-import search.UniformCostSearch;
+import search.UniformCost;
 
 public class SearchFactory {
 	private static HashMap<String, Search> searchFactory;
 	
 	public SearchFactory() {
 		searchFactory = new HashMap<String, Search>();
-		searchFactory.put("Breadth First Search", new BreadthFirstSearch());
-		searchFactory.put("Uniform Cost Search", new UniformCostSearch());
-		searchFactory.put("A* Search", new AStarSearch());
-		searchFactory.put("Iterative Depth Limited Search", new IterativeDepthLimitedSearch());
-		searchFactory.put("Depth Limited Search", new DepthLimitedSearch());
-		searchFactory.put("Recursive Best First Search", new RecursiveBestFirstSearch());
+		searchFactory.put("Breadth First Search", new BreadthFirst());
+		searchFactory.put("Uniform Cost Search", new UniformCost());
+		searchFactory.put("A* Search", new AStar());
+		searchFactory.put("Iterative Depth Limited Search", new IterativeDepthLimited());
+		searchFactory.put("Depth Limited Search", new DepthLimited());
+		searchFactory.put("Recursive Best First Search", new RecursiveBestFirst());
 	
 		
 	}

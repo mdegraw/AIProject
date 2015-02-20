@@ -25,9 +25,7 @@ public class RecursiveBestFirstSearch extends Search{
 	}//End recursiveBestFirstSearch
 	
 	public Node rBFS(Problem problem, Node node, int f_limit) throws IOException {
-		
-		System.out.println("f_limit = " + f_limit);
-		
+
 		if(node.getState().equals(problem.getGoal())){
 			node.setResult(Result.SUCCESS);
 			return node;
@@ -52,13 +50,13 @@ public class RecursiveBestFirstSearch extends Search{
 		while(true) {
 			
 			Node best = getLowestFValue(successors);
-			System.out.println("Best Node is " + best.getState() + " Best f-cost = " + best.getfCost() + " Best f-limit = " + best.getfLimit() );
+			
 			if(best.getfCost() > f_limit) {
 				best.setResult(Result.FAILURE);
 				best.setfLimit(best.getfCost());
 				return best;
 			}
-			//successors.sort((Node n1, Node n2) -> (n1.getfCost() - n2.getfCost()));
+	
 			successors.sort(Comparator.comparing(Node::getfCost));
 			
 			int alternative = successors.get(successors.size()-2).getfCost();
@@ -66,8 +64,7 @@ public class RecursiveBestFirstSearch extends Search{
 			Node result =  rBFS(problem, best, Math.min(f_limit, alternative));
 			best.setfCost(result.getfCost());
 			
-			System.out.println("Result Node is " + result.getState() + " R f-cost = " + result.getfCost() + " R f-limit = " + result.getfLimit() );
-			
+	
 			if(!result.getResult().equals(Result.FAILURE)) {
 				return result;
 			}

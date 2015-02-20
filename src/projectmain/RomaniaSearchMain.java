@@ -59,7 +59,7 @@ public class RomaniaSearchMain {
 			startTime = System.nanoTime();
 			List<Node> solution6 = ((RecursiveBestFirstSearch)rbfs).returnPathFromRBFS(problem);
 			endTime = System.nanoTime();
-			duration5 = TimeUnit.MILLISECONDS.convert(endTime-startTime, TimeUnit.NANOSECONDS);
+			duration6 = TimeUnit.MILLISECONDS.convert(endTime-startTime, TimeUnit.NANOSECONDS);
 			System.out.print("\nRecursive Best-First-Search  Solution path is: ");
 			
 			for(Node n : solution6){
@@ -90,20 +90,20 @@ public class RomaniaSearchMain {
 		List<Node> solution4 = ((DepthLimitedSearch)dls).returnPathFromDLS(problem, 5);
 		endTime = System.nanoTime();
 		duration4 = TimeUnit.MILLISECONDS.convert(endTime-startTime, TimeUnit.NANOSECONDS);
-		System.out.print("\nDLS Solution path is: ");
+		System.out.print("\nDepth Limitied Search  Solution path is: ");
 		
 		for(Node n : solution4) {
 			System.out.print(n.getState() + " ");
 		}
 	
-		System.out.println("\nRecursive DLS Time Taken: " + duration4 + " milliseconds");
+		System.out.println("\nDepth Limitied Search Time Taken: " + duration4 + " milliseconds");
 		
 		Search idls = searchFactory.getSearch("Iterative Depth Limited Search");
 		startTime = System.nanoTime();
 		List<Node> solution5 = ((IterativeDepthLimitedSearch)idls).iterativeDLS(problem);
 		endTime = System.nanoTime();
 		duration5 = TimeUnit.MILLISECONDS.convert(endTime-startTime, TimeUnit.NANOSECONDS);
-		System.out.print("\niterativeDLS Solution path is: ");
+		System.out.print("iterativeDLS Solution path is: ");
 		
 		for(Node n : solution5){
 			System.out.print(n.getState() + " ");

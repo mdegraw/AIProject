@@ -38,7 +38,7 @@ public class RomaniaSearchMain {
 		endTime = System.nanoTime();
 		duration2 = TimeUnit.MILLISECONDS.convert(endTime-startTime, TimeUnit.NANOSECONDS);
 		
-		if(goal.equals("Bucharest")){
+		if(goal.equals("Bucharest") && startCity.equals("Arad")){
 			
 			Search astar = searchFactory.getSearch("A* Search");
 			startTime = System.nanoTime();

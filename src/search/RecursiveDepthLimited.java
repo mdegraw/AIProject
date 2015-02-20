@@ -20,6 +20,7 @@ public class RecursiveDepthLimited extends Search{
 		}else {
 			cutoff_occurred = false;
 			for(String s : node.getAction().getListOfActions()) {
+				
 				Node child = node.childNode(node, s, problem);
 				Node result_node = recursiveDLS(child, problem, limit-1);
 			

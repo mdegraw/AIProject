@@ -33,7 +33,7 @@ public class BreadthFirst extends Search{
 			explored.add(city.getState());
 			
 			for(String s : city.getAction().getListOfActions()) {
-				Node child = nodeTree.parseCSV(s, city);
+				Node child = city.childNode(city, s, problem);
 				
 				if(!(explored.contains(child.getState()) || frontier.contains(child))) {
 					if(child.getState().equals(problem.getGoal())){ 

@@ -33,8 +33,8 @@ public class RecursiveBestFirst extends Search{
 		ArrayList<Node> successors = new ArrayList<Node>();
 		
 		for(String s : node.getAction().getListOfActions()) {
-			CSVParser nodeTree = new CSVParser(problem.getFile(), problem.getStartCity());
-			successors.add(nodeTree.parseCSV(s, node));
+			
+			successors.add(node.childNode(node, s, problem));
 		}
 		
 		if(successors.isEmpty()) {

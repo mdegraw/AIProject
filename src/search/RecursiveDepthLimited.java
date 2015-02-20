@@ -2,7 +2,6 @@ package search;
 
 import java.io.IOException;
 
-import parser.CSVParser;
 import airomaniansearchcore.Node;
 import airomaniansearchcore.Problem;
 import airomaniansearchcore.Result;
@@ -21,8 +20,7 @@ public class RecursiveDepthLimited extends Search{
 		}else {
 			cutoff_occurred = false;
 			for(String s : node.getAction().getListOfActions()) {
-				CSVParser nodeTree = new CSVParser(problem.getFile(), problem.getStartCity());
-				Node child = nodeTree.parseCSV(s, node);
+				Node child = node.childNode(node, s, problem);
 				Node result_node = recursiveDLS(child, problem, limit-1);
 			
 				if(result_node.getResult().equals(Result.CUTOFF)){

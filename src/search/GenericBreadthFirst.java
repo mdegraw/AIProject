@@ -18,8 +18,8 @@ public class GenericBreadthFirst extends Search {
 		HashMap<Node, String> frontier_elements = new HashMap<Node, String>();
 		HashSet<String> explored = new HashSet<String>();
 		List<Node> solutionPath = new ArrayList<Node>();
+		
 		CSVParser nodeTree = new CSVParser(problem.getFile(), problem.getStartCity());
-
 		root = nodeTree.parseCSV(problem.getStartCity(), null);
 		
 		frontier.add(root);
@@ -49,7 +49,7 @@ public class GenericBreadthFirst extends Search {
 			explored.add(city.getState());
 			
 			for(String s : city.getAction().getListOfActions()) {
-				Node child = nodeTree.parseCSV(s, city);
+				Node child = city.childNode(city, s, problem);
 				
 				if(!(explored.contains(child.getState()) || frontier_elements.containsValue(child.getState()))) {
 		

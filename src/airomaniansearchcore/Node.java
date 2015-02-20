@@ -1,5 +1,9 @@
 package airomaniansearchcore;
 
+import java.io.IOException;
+
+import parser.CSVParser;
+
 public class Node {
 	private String state;
 	private Node parent;
@@ -41,11 +45,13 @@ public class Node {
 		this.result = Result.INITIAL;
 	}
 
-	/*
-	public Node childNode(Node parent, String action) {
-		return new NodeParser();
+	
+	public Node childNode(Node parent, String action, Problem problem) throws IOException {
+		CSVParser nodeTree = new CSVParser(problem.getFile(), problem.getStartCity());
+		
+		return nodeTree.parseCSV(action, parent);
 	}
-	*/
+	
 	public String getState() {
 		return state;
 	}

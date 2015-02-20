@@ -28,4 +28,6 @@ public class SearchFactory {
 	public Search getSearch(String searchType) {
 		return searchFactory.get(searchType);
 	}
+	
+	
 }

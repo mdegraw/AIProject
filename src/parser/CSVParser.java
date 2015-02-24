@@ -51,7 +51,7 @@ public class CSVParser {
 				actions.addAction(cityAction.split(DELIMITER)[1]);
 			}
 		}
-		return new Node(cityName, actions, 0, heuristic);
+		return new Node(cityName, actions, heuristic);
 	
 	}
 	

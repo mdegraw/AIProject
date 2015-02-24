@@ -11,7 +11,7 @@ public class Problem {
 	public Problem(String startCity, String goal) {
 		this.startCity = startCity;
 		this.goal = goal;
-		setFile(new File(System.getProperty("user.dir")+"/"+"Romania.csv"));
+		this.file = new File(System.getProperty("user.dir")+"/"+"Romania.csv");
 	}
 
 	public String getStartCity() {

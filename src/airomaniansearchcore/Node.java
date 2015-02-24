@@ -14,35 +14,29 @@ public class Node {
 	private int fCost;
 	private int fLimit;
 	
-	public Node(String state, Node parent, Action action, int stepCost) {
+	public Node(String state, Action action, int pathCost, int heuristic){
 		this.state = state;
-		this.parent = parent;
 		this.action = action;
-		this.heuristic = 0;
-		this.pathCost = parent.getPathCost() + stepCost;
-		this.fCost = this.pathCost;
+		this.pathCost = pathCost;
+		this.heuristic = heuristic;
 		this.fLimit = 0;
 		this.result = Result.INITIAL;
 	}
+	
+	
 	public Node(String state, Node parent, Action action, int stepCost, int heuristic) {
-		this.state = state;
+		this(state, action, parent.getPathCost() + stepCost, heuristic);
 		this.parent = parent;
-		this.action = action;
-		this.heuristic = heuristic;
-		this.pathCost = parent.getPathCost() + stepCost;
+		//this.pathCost = parent.getPathCost() + stepCost;
 		this.fCost = this.pathCost + this.heuristic;
-		this.fLimit = 0;
-		this.result = Result.INITIAL;
+	
 	}
-	public Node(String state, Action action, int stepCost, int heuristic) {
-		this.state = state;
+	public Node(String state, Action action, int heuristic) {
+		this(state, action, 0, heuristic);
 		this.parent = null;
-		this.action = action;
+		this.fCost = heuristic;
 		this.pathCost = 0;
-		this.heuristic = heuristic;
-		this.fCost = this.heuristic;
-		this.fLimit = 0;
-		this.result = Result.INITIAL;
+	
 	}
 
 	

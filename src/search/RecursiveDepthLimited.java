@@ -27,7 +27,7 @@ public class RecursiveDepthLimited extends Search{
 				if(result_node.getResult().equals(Result.CUTOFF)){
 					cutoff_occurred = true;
 				
-				}else if(!result_node.equals(Result.FAILURE)) {
+				}else if(!result_node.getResult().equals(Result.FAILURE)) {
 					return result_node;
 				}
 			}
